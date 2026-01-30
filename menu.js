@@ -1,12 +1,12 @@
-cosnt menuSelection = document.getElementById('selection2');
+const menuSelection = document.getElementById('selection2');
 const fieldsets = document.querySelectorAll('selection2 fieldset');
-const legends = document.querySelectorAll('selection2 fieldset > legend');
+const legends = document.querySelectorAll('#selection2 fieldset > legend');
 
 const filterWrap = document.createElement('div');
     filterWrap.id = 'menuFilters';
 const title = document.createElement('h3');
-    title.textContent = 'Filter Categories';
-const allButton = document.createElement('Button');
+    title.textContent = 'Filter categories';
+const allButton = document.createElement('button');
     allButton.type = 'button';
     allButton.textContent = 'All'
 
@@ -16,8 +16,8 @@ const allButton = document.createElement('Button');
 legends.forEach((legends) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = legend.textContext.trim();
-    button.dataset.category = legend.textContent.trim();
+    button.textContent = legends.textContext.trim();
+    button.dataset.category = legends.textContent.trim();
 
     filterWrap.appendChild(button);
 });
@@ -37,10 +37,10 @@ filterWrap.addEventListener('click', (e) => {
 
     filterWrap.querySelectorAll('button').forEach(b => b.classList.remove('active'));
 
-    title.textContent = `Filter Categories (${chosen})`;
+    title.textContent = `Filter categories (${chosen})`;
 });
 
 allButton.addEventListener('click', () => {
     fieldsets.forEach(fs => fs.computedStyleMap.display = '');
-    title.textContent = 'Filter Categories (All)';
+    title.textContent = 'Filter categories (All)';
 })
