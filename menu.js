@@ -30,12 +30,12 @@ buttonContainer.style.cssText = `
 
 const categories = [
     'ALL',
-    'MILK TEAS',
-    'FRUIT TEAS',
-    'MATCHA',
+    'SLUSH TEAS',
+    'PUNCHY TEAS',
+    'MATCHA TEAS',
     'CLASSIC TEAS',
     'YOGURTS',
-    'COFFEE'];
+    'ESPRESSO'];
 
 categories.forEach(function(category) {
     const btn = document.createElement('button');
