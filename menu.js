@@ -1,7 +1,7 @@
 const menuSection = document.getElementById('section2');
 
 const allDrinks = document.querySelectorAll('.teaDes');
-const allFieldsets = document.querySelectorAll('fieldset');
+const allFieldsets = document.querySelectorAll('menu-col fieldset');
 const menuCol = document.querySelector('.menu-col');
 
 const filterContainer = document.createElement('div');
