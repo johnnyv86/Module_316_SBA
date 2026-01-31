@@ -126,7 +126,6 @@ cartContainer.style.cssText = `
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0,0,0,0,3);`;
 
-  
 
 const cartTitle = document.createElement('h3');
 cartTitle.textContent = '🛒 Your Cart';
@@ -137,7 +136,6 @@ cartTitle.style.cssText = `
     font-size: 1.3em;`;
 
 
-
 const cartItems = document.createElement('ul');
 cartItems.id = 'cart-items';
 cartItems.style.cssText = `
@@ -145,7 +143,6 @@ cartItems.style.cssText = `
     padding: 0;
     margin: 15px 0;`;
 
-  
 
 const cartTotal = document.createElement('div');
 cartTotal.id = 'cart-total';
@@ -161,7 +158,6 @@ background-color: #2c2c2c;
 
 cartTotal.textContent = 'Total: $0.00';
   
-
 const clearCartBtn = document.createElement('button');
 clearCartBtn.textContent = 'Clear Cart';
 clearCartBtn.className = 'ClearBtn';
@@ -186,7 +182,6 @@ cartContainer.appendChild(fragment);
 
 document.body.appendChild(cartContainer);
 
-  
 
 const cartItemTemplate = document.createElement ('template');
 cartItemTemplate.innerHTML = `
@@ -200,9 +195,9 @@ cartItemTemplate.innerHTML = `
             display: flex;
             justify-content: space-between;
             align-items: center;">
-            <span class="item-name style="
+             <span class="item-name style="
                 color: #ccc;
-                font:-size: 0.9em;"></span
+                font-size: 0.9em;"></span>
             <span class="item-price" style="
                 color: #8FB38F;
                 font-weight: bold;"></span>
@@ -216,8 +211,7 @@ cartItemTemplate.innerHTML = `
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-size: 0.8em">Remove
-        </button>
+            font-size: 0.8em;">Remove</button>
     </li>
 `;
 
@@ -249,7 +243,7 @@ allDrinks.forEach(function(drink) {
 
     addButton.addEventListener('mouseover', function() {
         addButton.style.transform = 'scale(1.05)';
-        addButton.backgroundColor = '$45a049';
+        addButton.backgroundColor = '#45a049';
     });
 
     
@@ -275,7 +269,6 @@ allDrinks.forEach(function(drink) {
     descriptionDiv.appendChild(addButton);
 });
 
-  
 
 function addToCart(name, price) {
     cartData.push({ name, price });
@@ -293,7 +286,7 @@ function updateCart() {
 
         const itemName = itemClone.querySelector('.item-name');
         const itemPrice = itemClone.querySelector('.item-price');
-        const removeBtn = itemClone.querySelector('remove-item');
+        const removeBtn = itemClone.querySelector('.remove-item');
 
         itemName.textContent = item.name;
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
