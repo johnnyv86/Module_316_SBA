@@ -111,8 +111,8 @@ function updateDrinkCount(category) {
 
 
 const cartContainer = document.createElement('div');
-cartContainer.id ='shopping-cart';
-cartContainer.style.cssText =`
+cartContainer.id = 'shopping-cart';
+cartContainer.style.cssText = `
     position: fixed;
     top: 20px;
     right: 20px;
@@ -126,6 +126,8 @@ cartContainer.style.cssText =`
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0,0,0,0,3);`;
 
+  
+
 const cartTitle = document.createElement('h3');
 cartTitle.textContent = '🛒 Your Cart';
 cartTitle.style.cssText = `
@@ -134,17 +136,21 @@ cartTitle.style.cssText = `
     margin-bottom: 10px;
     font-size: 1.3em;`;
 
+
+
 const cartItems = document.createElement('ul');
 cartItems.id = 'cart-items';
 cartItems.style.cssText = `
-    list-style: none; 
-    padding: 0; 
+    list-style: none;
+    padding: 0;
     margin: 15px 0;`;
+
+  
 
 const cartTotal = document.createElement('div');
 cartTotal.id = 'cart-total';
 cartTotal.style.cssText = `
-    background-color: #2c2c2c;
+background-color: #2c2c2c;
     padding: 10px;
     text-align: center;
     color: white;
@@ -152,7 +158,9 @@ cartTotal.style.cssText = `
     border-radius: 5px;
     margin-top: 10px;`;
 
+
 cartTotal.textContent = 'Total: $0.00';
+  
 
 const clearCartBtn = document.createElement('button');
 clearCartBtn.textContent = 'Clear Cart';
@@ -167,84 +175,93 @@ clearCartBtn.style.cssText = `
     cursor: pointer;
     font-weight: bold;`;
 
-    const fragment = document.createDocumentFragment();
-    fragment.appendChild(cartTitle);
-    fragment.appendChild(cartItems);
-    fragment.appendChild(cartTotal);
-    fragment.appendChild(clearCartBtn);
+  
+const fragment = document.createDocumentFragment();
+fragment.appendChild(cartTitle);
+fragment.appendChild(cartItems);
+fragment.appendChild(cartTotal);
+fragment.appendChild(clearCartBtn);
+cartContainer.appendChild(fragment);
 
-    cartContainer.appendChild(cartContainer);
 
-    document.body.appendChild(cartContainer);
+document.body.appendChild(cartContainer);
 
-    const cartItemTemplate = document.createElement ('template');
-    cartItemTemplate.innerHTML = `
-        <li class="cart-item" style="
-            background-color: #2c2c2c;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 5px;
-            border-left : 3px solid #8FB38F;">
-            <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;">
-                <span class="item-name style="
-                    color: #ccc;
-                    font:-size: 0.9em;"></span>
-                <span class="item-price" style="
-                    color: #8FB38F;
-                    font-weight: bold;"></span>
-            </div>
-            
-            <button class="remove-item" style="
-                margin-top: 5px;
-                padding: 3px 8px;
-                background-color: #555;
-                color: white;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-                font-size: 0.8em">Remove
-            </button>
-        </li>
-    `;
+  
 
-    let cartData = [];
+const cartItemTemplate = document.createElement ('template');
+cartItemTemplate.innerHTML = `
+    <li class="cart-item" style="
+        background-color: #2c2c2c;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        border-left : 3px solid #8FB38F;">
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;">
+            <span class="item-name style="
+                color: #ccc;
+                font:-size: 0.9em;"></span
+            <span class="item-price" style="
+                color: #8FB38F;
+                font-weight: bold;"></span>
+        </div>
 
-addDrinks.forEach(function(drink) {
+        <button class="remove-item" style="
+            margin-top: 5px;
+            padding: 3px 8px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em">Remove
+        </button>
+    </li>
+`;
+
+  
+let cartData = [];
+  
+
+allDrinks.forEach(function(drink) {
     const drinkName = drink.querySelector('.teaType').firstChild.textContent;
     const priceSpan = drink.querySelector('.price');
     const price = parseFloat(priceSpan.textContent.replace('$', ''));
 
+  
     const addButton = document.createElement('button');
+
     addButton.textContent = '+ Add to Cart';
     addButton.className = 'add-to-cart-btn';
     addButton.style.cssText = `
         background-color: #8FB38F;
         color: white;
         padding: 8px 15px;
-        boarder; none;
+        boarder: none;
         border-radius: 5px;
         cursor: pointer;
         margin-top: 10px;
         font-weight: bold;
-        transition transform 0.2s ease;`;
- 
+        transition: transform 0.2s ease;`;
+
 
     addButton.addEventListener('mouseover', function() {
         addButton.style.transform = 'scale(1.05)';
         addButton.backgroundColor = '$45a049';
     });
 
+    
     addButton.addEventListener('mouseout', function() {
         addButton.style.transform = 'scale(1)';
         addButton.style.backgroundColor = '#8FB38F';
     });
+    
 
     addButton.addEventListener('click', function() {
         addToCart(drinkName, price);
-
+    
         addButton.textContent = '✓ Added!';
         addButton.style.backgroundColor = '#45a049';
 
@@ -252,17 +269,19 @@ addDrinks.forEach(function(drink) {
             addButton.textContent = '+ Add to Cart';
             addButton.style.backgroundColor = '#8FB38F';
         }, 1000);
-     });
-
+    });
+  
     const descriptionDiv = drink.querySelector('.drinkDes1');
     descriptionDiv.appendChild(addButton);
 });
 
+  
 
 function addToCart(name, price) {
     cartData.push({ name, price });
     updateCart();
 }
+
 
 function updateCart() {
     cartItems.innerHTML = '';
@@ -294,11 +313,11 @@ function updateCart() {
 }
 
 clearCartBtn.addEventListener('click', function() {
-    cartDate = [];
+    cartData = [];
     updateCart();
+
 
     if (cartData.length === 0) {
         alert('Cart cleared successfully!');
     }
 });
-
