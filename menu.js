@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const filterButtons = document.querySelectorAll("#drink-filters .filter-btn");
-    const drinkGroups = document.querySelectorAll("fieldset[data-type]");
+    const filterButtons = document.querySelectorAll("#drinkFilters .filterBtn");
+    const drinkGroups = document.querySelectorAll("fieldset[dataType]");
 
-    const filterContainer = document.getElementById("drink-filters");
+    const filterContainer = document.getElementById("drinkFilters");
 
     filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const cartList = document.getElementById("cart-items");
-    const cartEmptyMsg = document.getElementById("cart-empty-msg");
-    const cartTotalEl = document.getElementById("cart-total");
+    const cartList = document.getElementById("cartItems");
+    const cartEmptyMsg = document.getElementById("cartEmptyMsg");
+    const cartTotalEl = document.getElementById("cartTotal");
     
     let cartTotal = 0;
 
-    const selectButton =document.querySelectorAll(".teaDes .select-dink-btn");
+    const selectButton =document.querySelectorAll(".teaDes .selectDrinkBtn");
 
     selectButton.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const li = document.createElement("li");
             li.textContent = `${drinkName} - $${priceValue.toFixed(2)}`;
 
-            li.classList.add("cart-item");
+            li.classList.add("cartItem");
 
             cartList.appendChild(li);
 
@@ -60,8 +60,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document
                 .querySelectorAll(".teaDes")
-                .forEach((card) => card.classList.remove("selected-drink"));
-            drinkCard.classList.add("selected-drink");
+                .forEach((card) => card.classList.remove("selectedDrink"));
+            drinkCard.classList.add("selectedDrink");
         });
     });
 });
+
+
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const selectedDetails = document.getElementById("selectedDrinkDetails");
+    const addToCartBtn = document.getElementById=("addToCartBtn");
+
+    const cartList = document.getElementById("cartItems");
+    const cartEmptyMsg = document.getElementById("cartEmptyMsg");
+    const cartTotalEl = document.getElementById("cartTotal");
+
+    let cartTotal = 0;
+    let currentSelection = null;
+
+    const selectButtons = document.querySelectorAll(".teaDes .selectDrinkBtn");
+
+    selectButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const drinkCard = btn.closest(".teaDes");
+            const nameEl = drinkCard.querySelector(".teaType");
+            const priceEl = drinkCard.querySelector(".price");
+
+            const drinkName = nameEl ? nameEl.childNodes[0].textContent.trim() :"Unknown Drink";
+
+            currentSelection = { name: drinkName, price: priceValue};
+
+            selecedtDetails.innerHTML = 
+                `<p><strong>Drink:</strong> ${drinkName}</p>
+                <p><stong>Price:</strong> $${priceValue.toFixed(2)}</p>
+            `;
+
+            addToCartBtn.disabled = false;
+
+            document
+                .querySelectorAll(".teaDes")
+                .forEach((card) => card.classList.remove("selectedDrink"));
+            drinkCard.classList.add("selectedDrink");
+        });
+    });
+
+    addToCartBtn.addEventListener("click", () => {
+        if (!currentSelection) return;
+
+        const li = document.createElement("li");
+        li.textContent = `{$currentSelection.name} - $${currentSelection.price.toFixed(2)}`;
+        li.classList.add("cart-item");
+        cartList.appendChild(li);
+
+        if (cartEmptyMsg) {
+            cartEmptyMsg.style.display = "none";
+        }
+
+        cartTotal += currentSelection.price;
+        cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
+
+        const msg = document.createElement("p");
+        msg.textContent = "Drink added to cart!";
+        msg.style.color = "#8FB38F";
+        selectedDetails.appendChild(msg);
+
+        addToCartBtn.disabled = true;
+    })
+})

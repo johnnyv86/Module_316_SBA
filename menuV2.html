@@ -93,17 +93,17 @@
 
                 <fieldset>
                     <h1 class="MenuTitle">DRINKS</h1>
-                    <div id="drink-filters">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="milk">Milk Teas</button>
-                        <button class="filter-btn" data-filter="slush">Slush Teas</button>
-                        <button class="filter-btn" data-filter="punchy">Punchy Teas</button>
-                        <button class="filter-btn" data-filter="matcha">Matcha</button>
-                        <button class="filter-btn" data-filter="classic">Classic</button>
-                        <button class="filter-btn" data-filter="yogurt">Yogurts</button>
-                        <button class="filter-btn" data-filter="espresso">Espresso</button>
+                    <div id="drinkFilters">
+                        <button class="filterBtn active" dataFilter="all">All</button>
+                        <button class="filterBtn" dataFilter="milk">Milk Teas</button>
+                        <button class="filterBtn" dataFilter="slush">Slush Teas</button>
+                        <button class="filterBtn" dataFilter="punchy">Punchy Teas</button>
+                        <button class="filterBtn" dataFilter="matcha">Matcha</button>
+                        <button class="filterBtn" dataFilter="classic">Classic</button>
+                        <button class="filterBtn" dataFilter="yogurt">Yogurts</button>
+                        <button class="filterBtn" dataFilter="espresso">Espresso</button>
                     </div>
-                    <fieldset data-type="milk">
+                    <fieldset dataType="milk">
                         <legend>MILK TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -146,7 +146,7 @@
                         </article>
                     </fieldset>
         
-                    <fieldset data-type="slush">
+                    <fieldset dataType="slush">
                         <legend>SLUSH TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -187,7 +187,7 @@
                         </article>  
                     </fieldset>
 
-                    <fieldset data-type="punchy">
+                    <fieldset dataType="punchy">
                         <legend>PUNCHY TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -226,7 +226,7 @@
                         </article>  
                     </fieldset>
 
-                    <fieldset data-type="matcha">
+                    <fieldset dataType="matcha">
                         <legend>MATCHA TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -266,7 +266,7 @@
                         </article> 
                     </fieldset>
 
-                    <fieldset data-type="classic">
+                    <fieldset dataType="classic">
                         <legend>CLASSIC TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -304,7 +304,7 @@
                         </article>
                     </fieldset>
 
-                    <fieldset data-type="yogurt">
+                    <fieldset dataType="yogurt">
                         <legend>YOGURTS</legend>
                         <article class="teaDes">
                             <img 
@@ -343,7 +343,7 @@
                         </article>
                     </fieldset>
 
-                    <fieldset data-type="espresso">
+                    <fieldset dataType="espresso">
                         <legend>ESPRESSO</legend>
                         <article class="teaDes">
                             <img 
@@ -613,6 +613,23 @@
                 </fieldset>
         
                 <hr class="section-hr">
+
+                <fieldset id="selectedDrinkSection">
+                    <h2 class="menuTitle">Check Selection & Add to Cart!</h2>
+                    <div id="selectedDrinkDetails">
+                        <p>No drink select3ed yet.</p>
+                    </div>
+                    <button id="addToCartBtn" disabled>Add to Cart</button>
+                </fieldset>
+
+                <fieldset>
+                    <h2 class="cartTitle">YOUR CART</h2>
+                    <div id="cart">
+                        <p id="cartEmptyMsg">No drinks in cart.</p>
+                        <ul id="cartItems"></ul>
+                        <p id="cartTotal">Total: $0.00</p>
+                    </div>
+                </fieldset>
             </main>
         </div>
         <script src="menu.js" defer></script>
