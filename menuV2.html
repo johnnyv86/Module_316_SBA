@@ -647,16 +647,23 @@
                     <div id="selectedDrinkDetails">
                         <p>No drink selected yet.</p>
                     </div>
-                    <button id="addToCartBtn" disabled>Add to Cart</button>
+                    
+                    <div class="button-container">
+                        <button id="addToCartBtn" disabled>Add to Cart</button>
+                        <button id="clearSelectionBtn">Clear Selection</button>
+                    </div>
                 </fieldset>
 
                 <fieldset>
                     <h2 class="cartTitle">YOUR CART</h2>
                     <div id="cart">
                         <p id="cartEmptyMsg">No drinks in cart.</p>
-                        <ul id="cartItems"></ul>
+                        <ul id="cartItems"></ul>                            
                         <p id="cartTotal">Total: $0.00</p>
+                            
+                        <button id="clearCartBtn">Clear Cart</button>
                     </div>
+                </fieldset>
                 </fieldset>
             </main>
         </div>

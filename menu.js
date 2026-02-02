@@ -227,8 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return; 
         }
 
-
-
         // MODE 2: Create Cart Item
         
         // 1. Create cart item
@@ -270,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 6. Reset Summary Display
         selectedDetails.innerHTML = "<p>Select another drink!</p>";
-
         };
 
         cartTotal += currentSelection.price;
@@ -283,4 +280,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
         addToCartBtn.disabled = true;
      })
+
+     // CLEAR SELECTION LISTENER
+     const clearBtn = document.getElementById("clearSelectionBtn");
+
+     clearBtn.addEventListener("click", () => {
+        // 1. RESET DATA
+        currentSelection = null;
+        currentBasePrice = 0;
+        currentSizePrice = 0;
+        currentSizeName = "Small";
+        currentSweetness = "0%";
+        currentToppings = [];
+
+        // 2. RESET VISUAL
+        document.querySelectorAll("teaDes").forEach(card => card.classList.remove("active"));
+        sizeRows.forEach(row => row.classList.remove("active"));
+        sweetnessCards.forEach(card => card.classList.remove("active"));
+        toppingItems.forEach(item => item.classList.remove("active"));
+
+        // 3. RESET TEXT AND BUTTONS
+        selectedDetails.innerHTML = "<p>No drink selected yet.</p>";
+        addToCartBtn.textContent = "Add to Cart";
+        addToCartBtn.disable = true;
+
+        // 4. Scroll back to top
+        const drinkSelection = document.getElementById("drinkFilters");
+        if (drinkSelection) {
+            drinkSelection.scrollIntoView({ behavior: "smooth" });
+        }
+     })
+
+     // CLEAR CART LISTENER
+     const clearCartBtn = document.getElementById("clearCartBtn");
+
+     clearCartBtn.addEventListener("click", () => {
+        // 1. Clear the list (HTML)
+        cartList.innerHTML = "";
+        
+        // 2. Reset the total variable
+        cartTotal = 0;
+        cartTotalEl.textContent = "Total: $0.00";
+
+        // 3. Show emmpty messsage again
+        if (cartEmptyMsg) {
+            cartEmptyMsg.style.display = "block";
+        }
+
+        alert("Cart has been cleared!");
+     })
+
+
 })
