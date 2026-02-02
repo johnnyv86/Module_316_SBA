@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // FILTER LOGIC
     const filterButtons = document.querySelectorAll("#drinkFilters .filterBtn");
     const drinkGroups = document.querySelectorAll("fieldset[data-type]");
-
-    const filterContainer = document.getElementById("drinkFilters");
 
     filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // =============================================
-// ==========================================
+    // CART & SELECTION LOGIC
 
     const selectedDetails = document.getElementById("selectedDrinkDetails");
     const addToCartBtn = document.getElementById("addToCartBtn");
@@ -37,10 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let cartTotal = 0;
     let currentSelection = null;
+    let currentBasePrice = 0;
+    let currentSizePrice = 0;
+    let currentSizeName = "Small" 
 
     const selectButtons = document.querySelectorAll(".teaDes .selectDrinkBtn");
+    const sizeRows = document.querySelectorAll(".size-row");
 
-
+    // DRINK SELECTION LISTENER
     selectButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const drinkCard = btn.closest(".teaDes");
@@ -51,20 +54,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const drinkName = nameEl 
                 ? nameEl.childNodes[0].textContent.trim() 
                 : "Unknown Drink";
+
                 // Remove the '$' character before parsing
             const priceValue = priceEl 
                 ? parseFloat(priceEl.textContent.replace('$', '').trim()) 
                 : 0;
 
-            // store base price & reset size price    
+            // RESET LOGIC TO DEFAULT
             currentBasePrice = priceValue;
             currentSizePrice = 0;
+            currentSizeName = "Small";
 
-            //reset size visual selection
-            document.querySelectorAll(".size-row").forEach(row => row.classList.remove("active"));
+            // reset visual selection for sizes
+            sizeRows.forEach(row => row.classList.remove("active"));
 
             // set initial selection object
             currentSelection = { name: drinkName, price: currentBasePrice };
+            
             // helper function to uupdate text
             updateDisplay();
 
@@ -76,15 +82,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 .forEach((card) => card.classList.remove("selectedDrink"));
             drinkCard.classList.add("selectedDrink");
 
-            // Scroll to next section when clicked
+            // SCROLL LOGIC - Scroll to next section when clicked
             const sizeSection = document.getElementById("size-section");
             if (sizeSection) {
-                sizeSection.scrollIntoView({ behavior: "smooth" })
+                sizeSection.scrollIntoView({ behavior: "smooth" });
+            } else {
+                console.error("ID 'size-section' not found in HTML");
             }
         });
+    });
 
-        // SIZE SELECTION LOGIC
-        const sizeRows = document.querySelectorAll(".size-row");
+        // SIZE SELECTION LISTENER [OUTSIDE OF LOOP]
 
         sizeRows.forEach(row => {
             row.addEventListener("click", () => {
@@ -98,30 +106,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 sizeRows.forEach(r => r.classList.remove("active"));
                 row.classList.add("active");
 
-                // update the math
+                // 1. get price
                 currentSizePrice = parseFloat(row.dataset.price);
+                // 2. get size name in first row
+                currentSizeName = row.children[0].textContent;
+                // 3. update price
                 currentSelection.price =currentBasePrice + currentSizePrice;
 
                 updateDisplay();
             });
         });
 
-        // helper function to update summary section
+        // HELPER FUNCTION to update summary section
         function updateDisplay() {
             if(currentSelection) {
+                // create string "($0.75") or empty if free
+                const costTotal = currentSizePrice > 0
+                    ? `(+$${currentSizePrice.toFixed(2)})`
+                    : "";
+
                 selectedDetails.innerHTML = `
                     <p><strong>Drink:</strong> ${currentSelection.name}</p>
-                    <p><strong>Price:</strong> $${currentSelection.price.toFixed(2)}</p?
+                    <p><strong>Size:</strong> ${currentSizeName} ${costTotal}<p>
+                    <p><strong>Total:</strong> $${currentSelection.price.toFixed(2)}</p>
                 `;
             }
         }
-    });
 
+    // ADD TO CART LISTENER
      addToCartBtn.addEventListener("click", () => {
         if (!currentSelection) return;
 
         const li = document.createElement("li");
-        li.textContent = `${currentSelection.name} - $${currentSelection.price.toFixed(2)}`;
+        li.textContent = `${currentSelection.name} (${currentSizeName}) - $${currentSelection.price.toFixed(2)}`;
         li.classList.add("cart-item");
         cartList.appendChild(li);
 
