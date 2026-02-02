@@ -92,8 +92,18 @@
                 <hr class="section-hr"></fieldset>
 
                 <fieldset>
-                    <h2 class="MenuTitle">DRINKS</h1>
-                    <fieldset>
+                    <h1 class="MenuTitle">DRINKS</h1>
+                    <div id="drink-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="milk">Milk Teas</button>
+                        <button class="filter-btn" data-filter="slush">Slush Teas</button>
+                        <button class="filter-btn" data-filter="punchy">Punchy Teas</button>
+                        <button class="filter-btn" data-filter="matcha">Matcha</button>
+                        <button class="filter-btn" data-filter="classic">Classic</button>
+                        <button class="filter-btn" data-filter="yogurt">Yogurts</button>
+                        <button class="filter-btn" data-filter="espresso">Espresso</button>
+                    </div>
+                    <fieldset data-type="milk">
                         <legend>MILK TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -132,7 +142,7 @@
                         </article>
                     </fieldset>
         
-                    <fieldset>
+                    <fieldset data-type="slush">
                         <legend>SLUSH TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -173,7 +183,7 @@
                         </article>  
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset data-type="punchy">
                         <legend>PUNCHY TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -212,7 +222,7 @@
                         </article>  
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset data-type="matcha">
                         <legend>MATCHA TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -252,7 +262,7 @@
                         </article> 
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset data-type="classic">
                         <legend>CLASSIC TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -290,7 +300,7 @@
                         </article>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset data-type="yogurt">
                         <legend>YOGURTS</legend>
                         <article class="teaDes">
                             <img 
@@ -329,7 +339,7 @@
                         </article>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset data-type="espresso">
                         <legend>ESPRESSO</legend>
                         <article class="teaDes">
                             <img 
