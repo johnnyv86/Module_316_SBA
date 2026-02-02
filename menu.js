@@ -235,7 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ? ` + ${currentToppings.join(", ")}`
             : "";
 
-        li.textContent = `${currentSelection.name} (${currentSizeName}), ${currentSweetness}, ${toppingsString} - $${currentSelection.price.toFixed(2)}`;
+        const itemNumber = cartList.children.length + 1;
+
+        li.textContent = `${itemNumber}. ${currentSelection.name} (${currentSizeName}), ${currentSweetness}, ${toppingsString} - $${currentSelection.price.toFixed(2)}`;
         li.classList.add("cart-item");
         cartList.appendChild(li);
 
