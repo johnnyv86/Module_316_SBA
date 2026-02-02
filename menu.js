@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartEmptyMsg = document.getElementById("cartEmptyMsg");
     const cartTotalEl = document.getElementById("cartTotal");
 
-    let cartData = JSON.parsel(localStorage.getItem("perScholasTeaCart")) || [];
+    let cartData = JSON.parse(localStorage.getItem("perScholasTeaCart")) || [];
 
     let cartTotal = 0;
     let currentSelection = null;
@@ -53,14 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // HELPER: Renders Cart & save to storage
     function renderCart() {
-        // 1. Save to browser storage
+    
         localStorage.setItem("perScholasTeaCart", JSON.stringify(cartData));
-
-        // 2. Clear current HTML list
         cartList.innerHTML = "";
         let runningTotal = 0;
 
-        // 3. Rebuild list from data
+        // 1. Create DocumentFragment
+        const fragment = document.createDocumentFragment();
+
         cartData.forEach((item, index) => {
             const li = document.createElement("li");
             const toppingsString = item.toppings.length > 0
@@ -69,10 +69,16 @@ document.addEventListener("DOMContentLoaded", () => {
             
             li.textContent = `${index + 1}. ${item.name}, ${item.size}, ${item.sweetness}, ${toppingsString}) - $${item.price.toFixed(2)}`;
             li.classList.add("cart-item");
-            cartList.appendChild(li);
             
+
+        // 2. Append to fragment instead of cartList
+            fragment.appendChild(li);
+
             runningTotal += item.price;
         });
+
+        // 3. Append to fragment to the DOM
+        cartList.appendChild(fragment);
 
         // 4. Update total text
         cartTotalEl.textContent = `Total: $${runningTotal.toFixed(2)}`;
@@ -87,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderCart();
 
-    
+
     // HELPER: Recalulate total price
     function recalculateTotal() {
         if (!currentSelection) return;
@@ -183,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // SWEETNESS SELECTIONG LISTENER
+        // SWEETNESS SELECTION LISTENER
         sweetnessCards.forEach(card => {
             card.addEventListener("click", () => {
                 if (!currentSelection) {
@@ -371,5 +377,58 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Cart has been cleared!");
      })
 
+     // FORM LISTENER
+     const orderForm = document.getElementById("orderForm");
+     const orderName = document.getElementById("orderName");
+     const orderContact = document.getElementById("orderContact");
+     const emailInput = document.getElementById("emailInput");
+
+     if(orderForm) {
+        orderForm.addEventListener("submit", (event) => {
+            // 1. Get current values
+            const nameValue = nameInput.value.trim();
+            const contactValue = contactInput.value.trim();
+            const emailValue = emailInput.value;
+
+            // 2. Clean up number
+            const cleanPhone = contactValue.replace(/\D/g, '');
+
+            // DOM Validation Logic
+            if (nameValue.length < 3) {
+                event.preventDefault();
+                alert("Please enter a valid name.");
+                nameInput.style.border = "2px solid red";
+                return;
+            }
+
+            if (cleanPhone.length < 10) {
+                event.preventDefault()
+                alert("Please enter a vaild 10-digit phone number.");
+                contactInput.style.border = "2px solid red";
+                return;
+            }
+
+            if (!emailValue.includes("@") || emailValue.length < 5) {
+                alert("Please enter a vaild email address.")
+                emailInput.style.border = "2px solid red";
+                return;
+            }
+
+            alert(`Thank you, ${nameValue}! Your order has been placwed.`);
+    
+
+            // RESET BORDERS
+            nameInput.sytle.border = "1px solid #555";
+            contactInput.style.border = "1px solid #555";
+            emailInput.style.border = "1px solid #555";
+
+            // CLEAR CART
+            document.getElementById("clearCartBtn").click();
+            orderForm.reset();
+        })
+     }
+
 
 })
+
+   e.preventDefault();
