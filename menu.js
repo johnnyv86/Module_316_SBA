@@ -39,9 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentBasePrice = 0;
     let currentSizePrice = 0;
     let currentSizeName = "Small" 
+    let currentSweetness = "0%";
 
     const selectButtons = document.querySelectorAll(".teaDes .selectDrinkBtn");
     const sizeRows = document.querySelectorAll(".size-row");
+    const sweetnessCards = document.querySelectorAll(".sweetness-card");
 
     // DRINK SELECTION LISTENER
     selectButtons.forEach((btn) => {
@@ -64,9 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
             currentBasePrice = priceValue;
             currentSizePrice = 0;
             currentSizeName = "Small";
+            currentSweetness ="0%";
 
-            // reset visual selection for sizes
+            // RESET VISUALS
             sizeRows.forEach(row => row.classList.remove("active"));
+            sweetnessCards.forEach(card => card.classList.remove("active"));
 
             // set initial selection object
             currentSelection = { name: drinkName, price: currentBasePrice };
@@ -82,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .forEach((card) => card.classList.remove("selectedDrink"));
             drinkCard.classList.add("selectedDrink");
 
-            // SCROLL LOGIC - Scroll to next section when clicked
+            // SCROLL LOGIC - drink to size
             const sizeSection = document.getElementById("size-section");
             if (sizeSection) {
                 sizeSection.scrollIntoView({ behavior: "smooth" });
@@ -114,7 +118,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentSelection.price =currentBasePrice + currentSizePrice;
 
                 updateDisplay();
+
+                // SCROLL LOGIC: size to sweetness
+                const sweetnessSection = document.getElementById("sweetness-section");
+                if (sweetnessSection) {
+                    sweetnessSection.scrollIntoView({ behavior: "smooth" });
+                }
             });
+        });
+
+        // SWEETNESS SELECTIONG LISTENER
+        sweetnessCards.forEach(card => {
+            card.addEventListener("click", () => {
+                if (!currentSelection) {
+                    alert("Please select a drink first!");
+                    return;
+                }
+                // Visual update
+                sweetnessCards.forEach(c => c.classList.remove("active"));
+                card.classList.add("active");
+
+                // Update state
+                currentSweetness = card.dataset.level;
+
+                updateDisplay();
+
+                // SCROLL LOGIC:  Sweetness to Topping
+                const toppingsSection = document.getElementById("toppings-section");
+                if (toppingsSection) toppingsSection.scrollIntoView({behavior: "smooth" });
+            })
         });
 
         // HELPER FUNCTION to update summary section
@@ -128,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedDetails.innerHTML = `
                     <p><strong>Drink:</strong> ${currentSelection.name}</p>
                     <p><strong>Size:</strong> ${currentSizeName} ${costTotal}<p>
+                    <p><strong>Sweetness:</strong> ${currentSweetness}</p>
                     <p><strong>Total:</strong> $${currentSelection.price.toFixed(2)}</p>
                 `;
             }
@@ -138,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!currentSelection) return;
 
         const li = document.createElement("li");
-        li.textContent = `${currentSelection.name} (${currentSizeName}) - $${currentSelection.price.toFixed(2)}`;
+        li.textContent = `${currentSelection.name} (${currentSizeName}), ${currentSweetness} - $${currentSelection.price.toFixed(2)}`;
         li.classList.add("cart-item");
         cartList.appendChild(li);
 

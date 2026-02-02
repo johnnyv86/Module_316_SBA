@@ -827,6 +827,18 @@ button {
     cursor: pointer;
 }
 
+.sweetness-card {
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.sweetness-card.active {
+    border-color: #8FB38F;
+    background-color: #8FB38F;
+    border-radius: 8px;
+}
+
 /*=========================================
 		MOBILE EXPERIENCE
 =========================================*/
