@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartEmptyMsg = document.getElementById("cartEmptyMsg");
     const cartTotalEl = document.getElementById("cartTotal");
 
+    let cartData = JSON.parsel(localStorage.getItem("perScholasTeaCart")) || [];
+
     let cartTotal = 0;
     let currentSelection = null;
     let currentBasePrice = 0;
@@ -49,6 +51,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const sweetnessCards = document.querySelectorAll(".sweetness-card");
     const toppingItems = document.querySelectorAll(".topping-item")
 
+    // HELPER: Renders Cart & save to storage
+    function renderCart() {
+        // 1. Save to browser storage
+        localStorage.setItem("perScholasTeaCart", JSON.stringify(cartData));
+
+        // 2. Clear current HTML list
+        cartList.innerHTML = "";
+        let runningTotal = 0;
+
+        // 3. Rebuild list from data
+        cartData.forEach((item, index) => {
+            const li = document.createElement("li");
+            const toppingsString = item.toppings.length > 0
+                ? ` + ${item.toppings.join(", ")}`
+                : "";
+            
+            li.textContent = `${index + 1}. ${item.name}, ${item.size}, ${item.sweetness}, ${toppingsString}) - $${item.price.toFixed(2)}`;
+            li.classList.add("cart-item");
+            cartList.appendChild(li);
+            
+            runningTotal += item.price;
+        });
+
+        // 4. Update total text
+        cartTotalEl.textContent = `Total: $${runningTotal.toFixed(2)}`;
+
+        // 5. Toggle Empty Message
+        if (cartData.length === 0) {
+            if (cartEmptyMsg) cartEmptyMsg.style.display = "block";   
+        } else {
+            if (cartEmptyMsg) cartEmptyMsg.style.display = "none";
+        }
+    }
+
+    renderCart();
+
+    
     // HELPER: Recalulate total price
     function recalculateTotal() {
         if (!currentSelection) return;
