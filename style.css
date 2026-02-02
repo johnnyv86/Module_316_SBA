@@ -798,72 +798,24 @@ button {
 		JavaScript
 =========================================*/
 /* ==================== JavaScript Interactive Styles ==================== */
-/* Highlight the legend for the selected sweetness option */
-fieldset.sweetness-chosen > legend {
-  color: #8FB38F;
-  border-bottom: 2px solid #8FB38F;
-  padding-bottom: 4px;
+
+#cart {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
 }
 
-/* Keep Select button on the left (and remove the big gap) */
-
-
-.selected-drink {
-    border: 2px solid #8FB38F !important;
-    background-color: rgba(143, 179, 143, 0.1) !important;
-    transition: all 0.3s ease !important;
+#cart-items {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0;
 }
 
-.selected-topping {
-    border: 2px solid #8FB38F !important;
-    transform: scale(1.05) !important;
+#cart-items li {
+    padding: 5px 0;
+    border-bottom: 1px solid #444;
 }
-
-.teaDes {
-    transition: all 0.3s ease !important;
-}
-
-.topping-item {
-    transition: all 0.3s ease !important;
-    position: relative !important;
-}
-
-/* Animation for messages */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Filter button styles */
-.filter-btn {
-    background-color: #444 !important;
-    color: white !important;
-    border: none !important;
-    padding: 8px 15px !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-}
-
-.filter-btn:hover {
-    background-color: #555 !important;
-}
-
-.filter-btn.active {
-    background-color: #8FB38F !important;
-    color: white !important;
-}
-
-
-.teaDes button {
-  grid-column: 2;
-  justify-self: start; /* or end if you want it right-aligned */
-  margin-top: 6px;
-}
-
-
-
-
 
 
 
