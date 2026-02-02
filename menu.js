@@ -81,6 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
             currentSweetness = "0%";
             currentToppings = [];
 
+            // RESET BUTTON FOR NEW SELECTION
+            addToCartBtn.textContent = "Add to Cart";
+
             // RESET VISUALS
             sizeRows.forEach(row => row.classList.remove("active"));
             sweetnessCards.forEach(card => card.classList.remove("active"));
@@ -214,7 +217,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ADD TO CART LISTENER
      addToCartBtn.addEventListener("click", () => {
-        if (!currentSelection) return;
+
+        // MODE 1: "Add another drink!"
+        if (!currentSelection) {
+            const drinkSection = document.getElementById("drinkFilters");
+            if (drinkSection) {
+                drinkSection.scrollIntoView({ behavior: "smooth" });
+            }
+            return; 
+        }
+
+
+
+        // MODE 2: Create Cart Item
         
         // 1. Create cart item
         const li = document.createElement("li");
@@ -233,7 +248,13 @@ document.addEventListener("DOMContentLoaded", () => {
             cartTotal += currentSelection.price;
             cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
 
-        // 3. Reset all selected variables
+
+        // 3. Scroll back up to Drink Filter
+        addToCartBtn.textContent = "Add another drink!";
+        addToCartBtn.disabled = false;
+
+
+        // 4. Reset all selected variables
         currentSelection = null;
         currentBasePrice = 0;
         currentSizePrice = 0;
@@ -241,18 +262,16 @@ document.addEventListener("DOMContentLoaded", () => {
         currentSweetness = "0%"
         currentToppings = [];
 
-        // 4. Reset all visual
+        // 5. Reset all visual
         document.querySelectorAll(".teaDes").forEach(card => card.classList.remove("active"));
         sizeRows.forEach(row => row.classList.remove("active"));
         sweetnessCards.forEach(card => card.classList.remove("active"));
         toppingItems.forEach(item => item.classList.remove("active"));
 
-        // 5. Reset Summary Display
-        selectedDetails.innerHTML = "<p>No drink selected yet.</p>";
+        // 6. Reset Summary Display
+        selectedDetails.innerHTML = "<p>Select another drink!</p>";
 
-        // 6. Disable Button
-        addToCartBtn.disabled = true;
-        }
+        };
 
         cartTotal += currentSelection.price;
         cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
@@ -263,5 +282,5 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedDetails.appendChild(msg);
 
         addToCartBtn.disabled = true;
-    });
-});
+     })
+})
