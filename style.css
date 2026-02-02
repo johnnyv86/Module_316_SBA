@@ -817,7 +817,15 @@ button {
     border-bottom: 1px solid #444;
 }
 
+.size-row.active {
+    background-color: #8FB38F;
+    color: white;
+    font-weight: bold;
+}
 
+.size-row {
+    cursor: pointer;
+}
 
 /*=========================================
 		MOBILE EXPERIENCE

@@ -56,17 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? parseFloat(priceEl.textContent.replace('$', '').trim()) 
                 : 0;
 
-            currentSelection = { name: drinkName, price: priceValue };
+            // store base price & reset size price    
+            currentBasePrice = priceValue;
+            currentSizePrice = 0;
 
-            currentSelection = { name: drinkName, price: priceValue };
+            //reset size visual selection
+            document.querySelectorAll(".size-row").forEach(row => row.classList.remove("active"));
 
-            selectedDetails.innerHTML = `
-            <p><strong>Drink:</strong> ${drinkName}</p>
-            <p><strong>Price:</strong> $${priceValue.toFixed(2)}</p>
-`;
+            // set initial selection object
+            currentSelection = { name: drinkName, price: currentBasePrice };
+            // helper function to uupdate text
+            updateDisplay();
 
             addToCartBtn.disabled = false;
 
+            // highlight drink card
             document
                 .querySelectorAll(".teaDes")
                 .forEach((card) => card.classList.remove("selectedDrink"));
@@ -78,6 +82,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 sizeSection.scrollIntoView({ behavior: "smooth" })
             }
         });
+
+        // SIZE SELECTION LOGIC
+        const sizeRows = document.querySelectorAll(".size-row");
+
+        sizeRows.forEach(row => {
+            row.addEventListener("click", () => {
+                // selectable only after drink is selected
+                if (!currentSelection){
+                    alert("Please select a drink first!");
+                    return;
+                }
+
+                // visual update
+                sizeRows.forEach(r => r.classList.remove("active"));
+                row.classList.add("active");
+
+                // update the math
+                currentSizePrice = parseFloat(row.dataset.price);
+                currentSelection.price =currentBasePrice + currentSizePrice;
+
+                updateDisplay();
+            });
+        });
+
+        // helper function to update summary section
+        function updateDisplay() {
+            if(currentSelection) {
+                selectedDetails.innerHTML = `
+                    <p><strong>Drink:</strong> ${currentSelection.name}</p>
+                    <p><strong>Price:</strong> $${currentSelection.price.toFixed(2)}</p?
+                `;
+            }
+        }
     });
 
      addToCartBtn.addEventListener("click", () => {
