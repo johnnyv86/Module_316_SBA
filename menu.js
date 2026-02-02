@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    //CONSTANT
+    const TOPPING_PRICE = 0.50;
     // FILTER LOGIC
     const filterButtons = document.querySelectorAll("#drinkFilters .filterBtn");
     const drinkGroups = document.querySelectorAll("fieldset[data-type]");
@@ -40,10 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSizePrice = 0;
     let currentSizeName = "Small" 
     let currentSweetness = "0%";
+    let currentToppings = [];
 
     const selectButtons = document.querySelectorAll(".teaDes .selectDrinkBtn");
     const sizeRows = document.querySelectorAll(".size-row");
     const sweetnessCards = document.querySelectorAll(".sweetness-card");
+    const toppingItems = document.querySelectorAll(".topping-item")
+
+    // HELPER: Recalulate total price
+    function recalculateTotal() {
+        if (!currentSelection) return;
+
+        const toppingsCost = currentToppings.length * TOPPING_PRICE;
+        currentSelection.price = currentBasePrice + currentSizePrice + toppingsCost;
+    }
 
     // DRINK SELECTION LISTENER
     selectButtons.forEach((btn) => {
@@ -66,11 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
             currentBasePrice = priceValue;
             currentSizePrice = 0;
             currentSizeName = "Small";
-            currentSweetness ="0%";
+            currentSweetness = "0%";
+            currentToppings = [];
 
             // RESET VISUALS
             sizeRows.forEach(row => row.classList.remove("active"));
             sweetnessCards.forEach(card => card.classList.remove("active"));
+            toppingItems.forEach(item => item.classList.remove("active"));
 
             // set initial selection object
             currentSelection = { name: drinkName, price: currentBasePrice };
@@ -149,6 +163,33 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         });
 
+        // TOPPING LISTENER
+        toppingItems.forEach (item => {
+            item.addEventListener("click", () => {
+                if (!currentSelection) {
+                    alert("Please select a drink first!");
+                    return;
+                }
+
+                // Toggle active class - Visual update
+                item.classList.toggle("active");
+
+                // Get topping name from <h4> tag
+                const toppingName = item.querySelector("h4").textContent;
+
+                // Logic - if active add to array : remove
+                if (item.classList.contains("active")) {
+                    currentToppings.push(toppingName);
+                } else {
+                    currentToppings = currentToppings.filter(t => t !== toppingName);
+                }
+
+                recalculateTotal();
+
+                updateDisplay();
+            });
+        });
+
         // HELPER FUNCTION to update summary section
         function updateDisplay() {
             if(currentSelection) {
@@ -157,10 +198,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? `(+$${currentSizePrice.toFixed(2)})`
                     : "";
 
+                const toppingsText = currentToppings.length > 0
+                    ? currentToppings.map(t => `${t} (+$${TOPPING_PRICE.toFixed(2)})`).join(", ")
+                    : "None";
+
                 selectedDetails.innerHTML = `
                     <p><strong>Drink:</strong> ${currentSelection.name}</p>
                     <p><strong>Size:</strong> ${currentSizeName} ${costTotal}<p>
                     <p><strong>Sweetness:</strong> ${currentSweetness}</p>
+                    <p><strong>Toppings:</strong> ${toppingsText}</p>
                     <p><strong>Total:</strong> $${currentSelection.price.toFixed(2)}</p>
                 `;
             }
@@ -171,7 +217,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!currentSelection) return;
 
         const li = document.createElement("li");
-        li.textContent = `${currentSelection.name} (${currentSizeName}), ${currentSweetness} - $${currentSelection.price.toFixed(2)}`;
+        const toppingsString = currentToppings.length > 0
+            ? ` + ${currentToppings.join(", ")}`
+            : "";
+
+        li.textContent = `${currentSelection.name} (${currentSizeName}), ${currentSweetness}, ${toppingsString} - $${currentSelection.price.toFixed(2)}`;
         li.classList.add("cart-item");
         cartList.appendChild(li);
 

@@ -839,6 +839,19 @@ button {
     border-radius: 8px;
 }
 
+.topping-item {
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 5px;
+    transition: 0.2s;
+}
+
+.topping-item.active {
+    border-color: #8FB38F;
+    background-color: rgba(143, 179, 143, 0.1);
+}
+
 /*=========================================
 		MOBILE EXPERIENCE
 =========================================*/
