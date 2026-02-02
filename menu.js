@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? ` + ${item.toppings.join(", ")}`
                 : "";
             
-            li.textContent = `${index + 1}. ${item.name}, ${item.size}, ${item.sweetness}, ${toppingsString}) - $${item.price.toFixed(2)}`;
+            li.textContent = `${index + 1}. ${item.name}, ${item.size}, ${item.sweetness}, ${toppingsString} - $${item.price.toFixed(2)}`;
             li.classList.add("cart-item");
             
 
@@ -273,33 +273,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // MODE 2: Create Cart Item
+
+        // 1. Create data object for new item
+        const newItem = {
+            name: currentSelection.name,
+            size: currentSizeName,
+            sweetness: currentSweetness,
+            toppings: [...currentToppings],
+            price: currentSelection.price
+        };
+
+        // 2. Add to Master Data List
+        cartData.push(newItem);
+
+        // 3. Save & Update screen
+        renderCart();
         
-        // 1. Create cart item
-        const li = document.createElement("li");
-        const toppingsString = currentToppings.length > 0
-            ? ` + ${currentToppings.join(", ")}`
-            : "";
 
-        const itemNumber = cartList.children.length + 1;
-
-        li.textContent = `${itemNumber}. ${currentSelection.name} (${currentSizeName}), ${currentSweetness}, ${toppingsString} - $${currentSelection.price.toFixed(2)}`;
-        li.classList.add("cart-item");
-        cartList.appendChild(li);
-
-        // 2. Update cart total
-        if (cartEmptyMsg) {
-            cartEmptyMsg.style.display = "none";
-
-            cartTotal += currentSelection.price;
-            cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
-
-
-        // 3. Scroll back up to Drink Filter
+        // 4. Scroll back up to Drink Filter
         addToCartBtn.textContent = "Add another drink!";
-        addToCartBtn.disabled = false;
+        addToCartBtn.disabled = true;
 
 
-        // 4. Reset all selected variables
+        // 5. Reset all selected variables
         currentSelection = null;
         currentBasePrice = 0;
         currentSizePrice = 0;
@@ -307,26 +303,18 @@ document.addEventListener("DOMContentLoaded", () => {
         currentSweetness = "0%"
         currentToppings = [];
 
-        // 5. Reset all visual
+        // 6. Reset all visual
         document.querySelectorAll(".teaDes").forEach(card => card.classList.remove("active"));
         sizeRows.forEach(row => row.classList.remove("active"));
         sweetnessCards.forEach(card => card.classList.remove("active"));
         toppingItems.forEach(item => item.classList.remove("active"));
 
-        // 6. Reset Summary Display
-        selectedDetails.innerHTML = "<p>Select another drink!</p>";
-        };
+        // 7. Reset Summary Display
+        selectedDetails.innerHTML = `
+            <p style="color: #8FB38F; font-weight: bold;">Drink added to cart!</p>
+            <p>Select another drink below.</p> `;
+        });
 
-        cartTotal += currentSelection.price;
-        cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
-
-        const msg = document.createElement("p");
-        msg.textContent = "Drink added to cart!";
-        msg.style.color = "#8FB38F";
-        selectedDetails.appendChild(msg);
-
-        addToCartBtn.disabled = true;
-     })
 
      // CLEAR SELECTION LISTENER
      const clearBtn = document.getElementById("clearSelectionBtn");
@@ -341,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentToppings = [];
 
         // 2. RESET VISUAL
-        document.querySelectorAll("teaDes").forEach(card => card.classList.remove("active"));
+        document.querySelectorAll(".teaDes").forEach(card => card.classList.remove("active"));
         sizeRows.forEach(row => row.classList.remove("active"));
         sweetnessCards.forEach(card => card.classList.remove("active"));
         toppingItems.forEach(item => item.classList.remove("active"));
@@ -362,20 +350,14 @@ document.addEventListener("DOMContentLoaded", () => {
      const clearCartBtn = document.getElementById("clearCartBtn");
 
      clearCartBtn.addEventListener("click", () => {
-        // 1. Clear the list (HTML)
-        cartList.innerHTML = "";
-        
-        // 2. Reset the total variable
-        cartTotal = 0;
-        cartTotalEl.textContent = "Total: $0.00";
+        // 1. Empty Data Array
+        cartData = [];
 
-        // 3. Show emmpty messsage again
-        if (cartEmptyMsg) {
-            cartEmptyMsg.style.display = "block";
-        }
+        // 2. Update UI & Storage
+        renderCart();
 
         alert("Cart has been cleared!");
-     })
+     });
 
      // FORM LISTENER
      const orderForm = document.getElementById("orderForm");
@@ -386,8 +368,8 @@ document.addEventListener("DOMContentLoaded", () => {
      if(orderForm) {
         orderForm.addEventListener("submit", (event) => {
             // 1. Get current values
-            const nameValue = nameInput.value.trim();
-            const contactValue = contactInput.value.trim();
+            const nameValue = orderName.value.trim();
+            const contactValue = orderContact.value.trim();
             const emailValue = emailInput.value;
 
             // 2. Clean up number
@@ -397,14 +379,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (nameValue.length < 3) {
                 event.preventDefault();
                 alert("Please enter a valid name.");
-                nameInput.style.border = "2px solid red";
+                orderName.style.border = "2px solid red";
                 return;
             }
 
             if (cleanPhone.length < 10) {
                 event.preventDefault()
                 alert("Please enter a vaild 10-digit phone number.");
-                contactInput.style.border = "2px solid red";
+                orderContact.style.border = "2px solid red";
                 return;
             }
 
@@ -414,21 +396,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            alert(`Thank you, ${nameValue}! Your order has been placwed.`);
+            alert(`Thank you, ${nameValue}! Your order has been placed.`);
     
 
             // RESET BORDERS
-            nameInput.sytle.border = "1px solid #555";
+            nameInput.style.border = "1px solid #555";
             contactInput.style.border = "1px solid #555";
             emailInput.style.border = "1px solid #555";
 
             // CLEAR CART
-            document.getElementById("clearCartBtn").click();
+            const clearCartBtn = document.getElementById("clearCartBtn");
+            if(clearCartBtn) clearCartBtn.click();
+            
+
             orderForm.reset();
-        })
-     }
-
-
-})
-
-   e.preventDefault();
+            event.preventDefault();
+        });
+    }
+});
