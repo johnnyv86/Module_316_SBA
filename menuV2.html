@@ -94,16 +94,16 @@
                 <fieldset>
                     <h1 class="MenuTitle">DRINKS</h1>
                     <div id="drinkFilters">
-                        <button class="filterBtn active" dataFilter="all">All</button>
-                        <button class="filterBtn" dataFilter="milk">Milk Teas</button>
-                        <button class="filterBtn" dataFilter="slush">Slush Teas</button>
-                        <button class="filterBtn" dataFilter="punchy">Punchy Teas</button>
-                        <button class="filterBtn" dataFilter="matcha">Matcha</button>
-                        <button class="filterBtn" dataFilter="classic">Classic</button>
-                        <button class="filterBtn" dataFilter="yogurt">Yogurts</button>
-                        <button class="filterBtn" dataFilter="espresso">Espresso</button>
+                        <button class="filterBtn active" data-filter="all">All</button>
+                        <button class="filterBtn" data-filter="milk">Milk Teas</button>
+                        <button class="filterBtn" data-filter="slush">Slush Teas</button>
+                        <button class="filterBtn" data-filter="punchy">Punchy Teas</button>
+                        <button class="filterBtn" data-filter="matcha">Matcha</button>
+                        <button class="filterBtn" data-filter="classic">Classic</button>
+                        <button class="filterBtn" data-filter="yogurt">Yogurts</button>
+                        <button class="filterBtn" data-filter="espresso">Espresso</button>
                     </div>
-                    <fieldset dataType="milk">
+                    <fieldset data-type="milk">
                         <legend>MILK TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -131,6 +131,7 @@
                                 <p>A creamy yet bold Thai Tea flavor with a touch of honey.</p>
                                 <p>Contains Caffeine</p>
                                 </div>
+                                <button class="selectDrinkBtn">Select</button>
                         </article>
             
                         <article class="teaDes">
@@ -143,10 +144,11 @@
                                 <p>Longan honey, Milk powder, & jasmine green Tea.</p>
                                 <p>Sweet & fragrant.</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     </fieldset>
         
-                    <fieldset dataType="slush">
+                    <fieldset data-type="slush">
                         <legend>SLUSH TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -159,6 +161,7 @@
                                 <p>Inc. Mango Jelly topping to Exclude topping select "No Mango Jelly"</p>
                                 <p>Caffeine-free & Vegan friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -172,6 +175,7 @@
                                 <p>Sweet & refreshing.</p>
                                 <p>Contains dairy & Caffeine-free</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                         
                         <article class="teaDes">
@@ -184,10 +188,11 @@
                                 <p>An icy blend of sweet prickly pear and tangy lemon.</p>
                                 <p>A citrusy sweet treat!</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>  
                     </fieldset>
 
-                    <fieldset dataType="punchy">
+                    <fieldset data-type="punchy">
                         <legend>PUNCHY TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -199,6 +204,7 @@
                                 <p>Sweet lychee & fragrant jasmine green Tea.</p>
                                 <p>Vegan-friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -211,6 +217,7 @@
                                 <p>This vibrant magenta lemonade bursts with sweet and tart flavors.</p>
                                 <p>Vegan-friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -223,10 +230,11 @@
                                 <p>A refreshing tropical punch that's as iconic as Prism Tower! Sweet, blue curaçao blends perfectly with citrus lemonade, and crisp aloe jelly adds the freshing finish!</p>
                                 <p>Vegan-friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>  
                     </fieldset>
 
-                    <fieldset dataType="matcha">
+                    <fieldset data-type="matcha">
                         <legend>MATCHA TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -238,6 +246,7 @@
                                 <p>Creamy & fragrant Japanese matcha green Tea & Lactose-free Milk. </p>
                                 <p>Contains Dairy & Caffeine.</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
 
                         <article class="teaDes">
@@ -250,6 +259,7 @@
                                 <p>Bitter sweet matcha, toasted sesame, & creamy Lactose-free Milk.</p>
                                 <p>Contains Dairy & Caffeine.</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
 
                         <article class="teaDes">
@@ -263,10 +273,11 @@
                                 <p>Includes Matcha Milk Cap</p>
                                 <p>Contains Dairy & Caffeine</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article> 
                     </fieldset>
 
-                    <fieldset dataType="classic">
+                    <fieldset data-type="classic">
                         <legend>CLASSIC TEAS</legend>
                         <article class="teaDes">
                             <img 
@@ -278,6 +289,7 @@
                                 <p>Refreshing jasmine green Tea sweetened with cane sugar.</p>
                                 <p>Vegan-Friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                 
                         <article class="teaDes">
@@ -290,6 +302,7 @@
                                 <p>Earl grey Tea with bergamot. Bold & citrusy.</p>
                                 <p>Vegan-Friendly</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -301,10 +314,11 @@
                             <div class="drinkDes1">
                                 <p>Rich honey & smooth oolong Tea.</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     </fieldset>
 
-                    <fieldset dataType="yogurt">
+                    <fieldset data-type="yogurt">
                         <legend>YOGURTS</legend>
                         <article class="teaDes">
                             <img 
@@ -316,6 +330,7 @@
                                 <p>Sweet and tart Yakult yogurt paired with delicious chunks of peach and fresh lemonade.</p>
                                 <p>Caffeine-Free & Contains Dairy</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                 
                         <article class="teaDes">
@@ -328,6 +343,7 @@
                                 <p>Yakult yogurt paired with strawberry juice. Smooth & tangy.</p>
                                 <p>Caffeine-Free & Contains Dairy</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -340,10 +356,11 @@
                                 <p>Yakult yogurt paired with fresh-squeezed orange juice. Sweet & tangy.</p>
                                 <p>Caffeine-Free & Contains Dairy</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     </fieldset>
 
-                    <fieldset dataType="espresso">
+                    <fieldset data-type="espresso">
                         <legend>ESPRESSO</legend>
                         <article class="teaDes">
                             <img 
@@ -355,6 +372,7 @@
                                 <p>Espresso, cane sugar, & Milk powder. Sweet & bold.</p>
                                 <p>Contains Dairy & Caffeine</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -367,6 +385,7 @@
                                 <p>Espresso paired with fresh Milk. Sweet & creamy.</p>
                                 <p>Contains Dairy & Caffeine</p>
                             </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     
                         <article class="teaDes">
@@ -378,13 +397,14 @@
                             <div class="drinkDes1">
                                 <p>Bold espresso mixed with caramel, vanilla, & Milk powder. Sweet & bold.</p>
                                 <p>Contains Dairy & Caffeine</p>
-                            </div>       
+                            </div>
+                            <button class="selectDrinkBtn">Select</button>
                         </article>
                     </fieldset>
                 </fieldset>
 
                 <fieldset>
-                    <h1 class="MenuTitle">DRINK SIZES</h2>
+                    <h1 class="MenuTitle" id="size-section">DRINK SIZES</h1>
                     <article class="drinkSizes">
                         <iframe 
                             src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHltcmUyOGUxYWN5dThkNWUwYzI1cWFtamVoM29hZmxkZjhzZW5oZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Y4VNo2dIdW8bpDgRXt/giphy.gif" 
@@ -617,7 +637,7 @@
                 <fieldset id="selectedDrinkSection">
                     <h2 class="menuTitle">Check Selection & Add to Cart!</h2>
                     <div id="selectedDrinkDetails">
-                        <p>No drink select3ed yet.</p>
+                        <p>No drink selected yet.</p>
                     </div>
                     <button id="addToCartBtn" disabled>Add to Cart</button>
                 </fieldset>

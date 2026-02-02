@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const filterButtons = document.querySelectorAll("#drinkFilters .filterBtn");
-    const drinkGroups = document.querySelectorAll("fieldset[dataType]");
+    const drinkGroups = document.querySelectorAll("fieldset[data-type]");
 
     const filterContainer = document.getElementById("drinkFilters");
 
@@ -23,55 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const cartList = document.getElementById("cartItems");
-    const cartEmptyMsg = document.getElementById("cartEmptyMsg");
-    const cartTotalEl = document.getElementById("cartTotal");
-    
-    let cartTotal = 0;
-
-    const selectButton =document.querySelectorAll(".teaDes .selectDrinkBtn");
-
-    selectButton.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const drinkCard = btn.closest(".teaDes");
-
-            const nameEl = drinkCard.querySelector(".teaType");
-            const priceEl = drinkCard.querySelector(".price");
-
-            const drinkName = nameEl ? nameEl.childNodes[0].textContent.trim() : "Unknown Drink";
-            const priceValue = priceEl ? parseFloat(priceEl.textContent.trim()) : 0;
-
-            const li = document.createElement("li");
-            li.textContent = `${drinkName} - $${priceValue.toFixed(2)}`;
-
-            li.classList.add("cartItem");
-
-            cartList.appendChild(li);
-
-            if (cartEmptyMsg) {
-                cartEmptyMsg.style.display = "none";
-            }
-
-            cartTotal += priceValue;
-            cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
-
-            document
-                .querySelectorAll(".teaDes")
-                .forEach((card) => card.classList.remove("selectedDrink"));
-            drinkCard.classList.add("selectedDrink");
-        });
-    });
-});
 
 
+// =============================================
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", () => {
     const selectedDetails = document.getElementById("selectedDrinkDetails");
-    const addToCartBtn = document.getElementById=("addToCartBtn");
+    const addToCartBtn = document.getElementById("addToCartBtn");
 
     const cartList = document.getElementById("cartItems");
     const cartEmptyMsg = document.getElementById("cartEmptyMsg");
@@ -82,20 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectButtons = document.querySelectorAll(".teaDes .selectDrinkBtn");
 
+
     selectButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const drinkCard = btn.closest(".teaDes");
+
             const nameEl = drinkCard.querySelector(".teaType");
             const priceEl = drinkCard.querySelector(".price");
 
-            const drinkName = nameEl ? nameEl.childNodes[0].textContent.trim() :"Unknown Drink";
+            const drinkName = nameEl 
+                ? nameEl.childNodes[0].textContent.trim() 
+                : "Unknown Drink";
+                // Remove the '$' character before parsing
+            const priceValue = priceEl 
+                ? parseFloat(priceEl.textContent.replace('$', '').trim()) 
+                : 0;
 
-            currentSelection = { name: drinkName, price: priceValue};
+            currentSelection = { name: drinkName, price: priceValue };
 
-            selecedtDetails.innerHTML = 
-                `<p><strong>Drink:</strong> ${drinkName}</p>
-                <p><stong>Price:</strong> $${priceValue.toFixed(2)}</p>
-            `;
+            currentSelection = { name: drinkName, price: priceValue };
+
+            selectedDetails.innerHTML = `
+            <p><strong>Drink:</strong> ${drinkName}</p>
+            <p><strong>Price:</strong> $${priceValue.toFixed(2)}</p>
+`;
 
             addToCartBtn.disabled = false;
 
@@ -103,14 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 .querySelectorAll(".teaDes")
                 .forEach((card) => card.classList.remove("selectedDrink"));
             drinkCard.classList.add("selectedDrink");
+
+            // Scroll to next section when clicked
+            const sizeSection = document.getElementById("size-section");
+            if (sizeSection) {
+                sizeSection.scrollIntoView({ behavior: "smooth" })
+            }
         });
     });
 
-    addToCartBtn.addEventListener("click", () => {
+     addToCartBtn.addEventListener("click", () => {
         if (!currentSelection) return;
 
         const li = document.createElement("li");
-        li.textContent = `{$currentSelection.name} - $${currentSelection.price.toFixed(2)}`;
+        li.textContent = `${currentSelection.name} - $${currentSelection.price.toFixed(2)}`;
         li.classList.add("cart-item");
         cartList.appendChild(li);
 
@@ -127,5 +101,5 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedDetails.appendChild(msg);
 
         addToCartBtn.disabled = true;
-    })
-})
+    });
+});
