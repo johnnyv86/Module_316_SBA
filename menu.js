@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // ADD TO CART LISTENER
      addToCartBtn.addEventListener("click", () => {
         if (!currentSelection) return;
-
+        
+        // 1. Create cart item
         const li = document.createElement("li");
         const toppingsString = currentToppings.length > 0
             ? ` + ${currentToppings.join(", ")}`
@@ -225,8 +226,32 @@ document.addEventListener("DOMContentLoaded", () => {
         li.classList.add("cart-item");
         cartList.appendChild(li);
 
+        // 2. Update cart total
         if (cartEmptyMsg) {
             cartEmptyMsg.style.display = "none";
+
+            cartTotal += currentSelection.price;
+            cartTotalEl.textContent = `Total: $${cartTotal.toFixed(2)}`;
+
+        // 3. Reset all selected variables
+        currentSelection = null;
+        currentBasePrice = 0;
+        currentSizePrice = 0;
+        currentSizeName = "Small";
+        currentSweetness = "0%"
+        currentToppings = [];
+
+        // 4. Reset all visual
+        document.querySelectorAll(".teaDes").forEach(card => card.classList.remove("active"));
+        sizeRows.forEach(row => row.classList.remove("active"));
+        sweetnessCards.forEach(card => card.classList.remove("active"));
+        toppingItems.forEach(item => item.classList.remove("active"));
+
+        // 5. Reset Summary Display
+        selectedDetails.innerHTML = "<p>No drink selected yet.</p>";
+
+        // 6. Disable Button
+        addToCartBtn.disabled = true;
         }
 
         cartTotal += currentSelection.price;
